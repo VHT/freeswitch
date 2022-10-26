@@ -33,6 +33,7 @@
 #include <switch.h>
 #include <flite/flite.h>
 
+cst_lexicon *cmu_lex_init(void);
 cst_voice *register_cmu_us_awb(void);
 void unregister_cmu_us_awb(cst_voice * v);
 
@@ -191,6 +192,7 @@ SWITCH_MODULE_LOAD_FUNCTION(mod_flite_load)
 	switch_speech_interface_t *speech_interface;
 
 	flite_init();
+	cmu_lex_init();
 	globals.awb = register_cmu_us_awb();
 	globals.kal = register_cmu_us_kal();
 	globals.rms = register_cmu_us_rms();
