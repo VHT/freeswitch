@@ -1639,14 +1639,15 @@ switch_status_t sofia_glue_do_invite(switch_core_session_t *session)
 		sofia_clear_flag(tech_pvt, TFLAG_ENABLE_SOA);
 	}
 
-	if ((tech_pvt->session_timeout = session_timeout)) {
-		tech_pvt->session_refresher = switch_channel_direction(channel) == SWITCH_CALL_DIRECTION_OUTBOUND ? nua_local_refresher : nua_remote_refresher;
-		if (sofia_test_pflag(tech_pvt->profile, PFLAG_UPDATE_REFRESHER) || switch_channel_var_true(tech_pvt->channel, "sip_update_refresher")) {
-			tech_pvt->update_refresher = 1;
-		}
-	} else {
-		tech_pvt->session_refresher = nua_no_refresher;
+
+	tech_pvt->session_timeout = session_timeout;
+	tech_pvt->session_refresher = switch_channel_direction(channel) == SWITCH_CALL_DIRECTION_OUTBOUND ? nua_local_refresher : nua_remote_refresher;
+	if (sofia_test_pflag(tech_pvt->profile, PFLAG_UPDATE_REFRESHER) || switch_channel_var_true(tech_pvt->channel, "sip_update_refresher")) {
+		tech_pvt->update_refresher = 1;
 	}
+	//} else {
+	//	tech_pvt->session_refresher = nua_no_refresher;
+	//}
 
 	switch_log_printf(SWITCH_CHANNEL_SESSION_LOG(tech_pvt->session), SWITCH_LOG_INFO, "%s sending invite call-id: %s\n",
 					  switch_channel_get_name(tech_pvt->channel), call_id);

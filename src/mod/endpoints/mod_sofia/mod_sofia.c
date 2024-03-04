@@ -961,14 +961,14 @@ static switch_status_t sofia_answer_channel(switch_core_session_t *session)
 			session_timeout = 0;
 		}
 
-		if ((tech_pvt->session_timeout = session_timeout)) {
-			tech_pvt->session_refresher = switch_channel_direction(channel) == SWITCH_CALL_DIRECTION_OUTBOUND ? nua_local_refresher : nua_remote_refresher;
-			if (sofia_test_pflag(tech_pvt->profile, PFLAG_UPDATE_REFRESHER) || switch_channel_var_true(tech_pvt->channel, "sip_update_refresher")) {
-				tech_pvt->update_refresher = 1;
-			}
-		} else {
-			tech_pvt->session_refresher = nua_no_refresher;
+		tech_pvt->session_timeout = session_timeout;
+		tech_pvt->session_refresher = switch_channel_direction(channel) == SWITCH_CALL_DIRECTION_OUTBOUND ? nua_local_refresher : nua_remote_refresher;
+		if (sofia_test_pflag(tech_pvt->profile, PFLAG_UPDATE_REFRESHER) || switch_channel_var_true(tech_pvt->channel, "sip_update_refresher")) {
+			tech_pvt->update_refresher = 1;
 		}
+		//} else {
+		//	tech_pvt->session_refresher = nua_no_refresher;
+		//}
 
 		if (sofia_use_soa(tech_pvt)) {
 			nua_respond(tech_pvt->nh, SIP_200_OK,
