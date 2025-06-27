@@ -565,9 +565,9 @@ SWITCH_DECLARE(void) switch_log_meta_vprintf(switch_text_channel_t channel, cons
 	switch_time_t now = switch_micro_time_now();
 	uint32_t len;
 #ifdef SWITCH_FUNC_IN_LOG
-	const char *extra_fmt = "%s [%s] %s:%d %s()%c%s";
+	const char *extra_fmt = "%s [%s] %s:%d %s()%c%s TESTING - JEA";
 #else
-	const char *extra_fmt = "%s [%s] %s:%d%c%s";
+	const char *extra_fmt = "%s [%s] %s:%d%c%s TESTING - JEA";
 #endif
 	switch_log_level_t limit_level = runtime.hard_log_level;
 	switch_log_level_t special_level = SWITCH_LOG_UNINIT;
